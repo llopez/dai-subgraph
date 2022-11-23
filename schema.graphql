@@ -1,0 +1,31 @@
+type Approval @entity(immutable: true) {
+  id: Bytes!
+  src: Bytes! # address
+  guy: Bytes! # address
+  wad: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LogNote @entity(immutable: true) {
+  id: Bytes!
+  sig: Bytes! # bytes4
+  usr: Bytes! # address
+  arg1: Bytes! # bytes32
+  arg2: Bytes! # bytes32
+  data: Bytes! # bytes
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  src: Bytes! # address
+  dst: Bytes! # address
+  wad: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
