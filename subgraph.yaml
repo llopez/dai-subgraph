@@ -8,22 +8,17 @@ dataSources:
     source:
       address: "0x6B175474E89094C44Da98b954EedeAC495271d0F"
       abi: Dai
+      startBlock: 8928158
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - LogNote
         - Transfer
       abis:
         - name: Dai
           file: ./abis/Dai.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: LogNote(indexed bytes4,indexed address,indexed bytes32,indexed bytes32,bytes)
-          handler: handleLogNote
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/dai.ts
