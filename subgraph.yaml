@@ -21,4 +21,4 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-      file: ./src/dai.ts
+      file: ./src/handlers/dai.ts

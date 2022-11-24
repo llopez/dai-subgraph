@@ -1,9 +1,26 @@
+enum TransferType {
+  TRANSFER
+  MINT
+  BURN
+}
+
+type DailyMetric @entity {
+  id: ID!
+  totalSupply: BigDecimal!
+}
+
 type Transfer @entity(immutable: true) {
   id: Bytes!
+  type: TransferType!
   src: Bytes! # address
   dst: Bytes! # address
   wad: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+}
+
+type Global @entity {
+  id: ID!
+  totalSupply: BigDecimal!
 }
