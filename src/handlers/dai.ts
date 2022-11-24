@@ -23,6 +23,9 @@ function updateDailyMetrics(transfer: Transfer): void {
     dailyMetric.totalSupply = dailyMetric.totalSupply.minus(amount);
   }
 
+  dailyMetric.blockNumber = transfer.blockNumber;
+  dailyMetric.blockTimestamp = transfer.blockTimestamp;
+
   dailyMetric.save();
 }
 

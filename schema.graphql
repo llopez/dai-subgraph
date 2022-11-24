@@ -4,9 +4,18 @@ enum TransferType {
   BURN
 }
 
-type DailyMetric @entity {
+interface Metric {
   id: ID!
   totalSupply: BigDecimal!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+}
+
+type DailyMetric implements Metric @entity {
+  id: ID!
+  totalSupply: BigDecimal!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
 }
 
 type Transfer @entity(immutable: true) {
