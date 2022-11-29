@@ -6,14 +6,13 @@ import {
   getOrCreateTransfer,
   decimals,
   getOrCreateGlobal,
+  timestampIntoDays,
 } from "../utils";
 
-const SECONDS_PER_DAY = 60 * 60 * 24;
-
 function updateDailyMetrics(transfer: Transfer): void {
-  const today = (transfer.blockTimestamp.toI64() / SECONDS_PER_DAY).toString();
+  const id = timestampIntoDays(transfer.blockTimestamp).toString();
 
-  const dailyMetric = getOrCreateDailyMetric(today);
+  const dailyMetric = getOrCreateDailyMetric(id);
 
   const amount = decimals.fromBigInt(transfer.wad, 18);
 
@@ -36,6 +35,8 @@ function handleMint(event: TransferEvent): void {
 
   transfer.save();
 
+  updateDailyMetrics(transfer);
+
   const global = getOrCreateGlobal();
 
   const amount = decimals.fromBigInt(transfer.wad, 18);
@@ -43,8 +44,6 @@ function handleMint(event: TransferEvent): void {
   global.totalSupply = global.totalSupply.plus(amount);
 
   global.save();
-
-  updateDailyMetrics(transfer);
 }
 
 function handleBurn(event: TransferEvent): void {
@@ -54,6 +53,8 @@ function handleBurn(event: TransferEvent): void {
 
   transfer.save();
 
+  updateDailyMetrics(transfer);
+
   const global = getOrCreateGlobal();
 
   const amount = decimals.fromBigInt(transfer.wad, 18);
@@ -61,8 +62,6 @@ function handleBurn(event: TransferEvent): void {
   global.totalSupply = global.totalSupply.minus(amount);
 
   global.save();
-
-  updateDailyMetrics(transfer);
 }
 
 export function handleTransfer(event: TransferEvent): void {

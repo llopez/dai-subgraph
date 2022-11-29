@@ -47,6 +47,7 @@ export function getOrCreateDailyMetric(id: string): DailyMetric {
 
 export namespace integer {
   export const TEN = BigInt.fromI32(10);
+  export const SECONDS_PER_DAY = BigInt.fromI32(60 * 60 * 24);
 }
 
 export namespace decimals {
@@ -55,4 +56,8 @@ export namespace decimals {
 
     return value.divDecimal(precision);
   }
+}
+
+export function timestampIntoDays(timestamp: BigInt): BigInt {
+  return timestamp.div(integer.SECONDS_PER_DAY);
 }
